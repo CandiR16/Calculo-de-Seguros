@@ -1,0 +1,16 @@
+#Se tiene una muestra de 80 polizas del ramo de gastos medicos
+#La probabilidad de que una de ellas tenga siniestros es de 0.2%
+#Estudie la variable aleatoria suponiendo una distribucion binomial 
+#Lo anterior debido a que se seleccionara si la póliza tiene o no siniestros
+#  x~B(80,02),  mi  v.a. va x=0,1,2,.....80
+
+# a) Calcular las probabilidades desde 0 a 80 (para todos los eventos)
+# b) Probabilidades acumuladas, graficos de cada unos de ellos
+# c) Grafico en el que se presente ambos
+# d) Media, Varianza, Desviestandar con formulas de las dist
+# e) A través de los valores esperados  obtengar el valor de E[(x^2) - 2x]
+# f) Informe de los percentiles y análisis de la cartera 
+# g) Análisis del Sesgo
+# h) Probabilidad de tener 5 siniestros de las polizas de la muestra
+# i) Calcular la Probabilidad de tener P[1<=x<=8]
+# j) Calcular la Probabilidad de tener P[x<=3] o P[x>1]
