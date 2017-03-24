@@ -1,0 +1,106 @@
+#Crear una lista o secuencia
+#Puede ser creada con secuencia o una simple lista
+seq(0:15) #genera la secuencia
+polizas<-(0:15)
+n<-15
+#dbinom() se emplea para obtener la probabilidad de que x=k
+prob_ejemplo<-dbinom(0,n,prob=0.25)
+prob_ejemplo
+prob<-dbinom(polizas,n,prob=0.25)
+prob
+
+#La funcion cbind permite agrupar objetos
+?cbind
+informef<-cbind(polizas,prob)
+informef
+#Gráfico de las probabilidades
+plot(polizas,prob,type="b", xlab="Polizas", ylab="Probabilidades")
+#Otra forma de graficar
+plot(polizas,prob,type="l", xlab="Polizas", ylab="Probabilidades")
+points(polizas,prob)
+#Calculo de las probabilidades menores o iguales P[X<==X]
+F<-cumsum(prob)
+F
+informe_acum<-cbind(polizas,F)
+informe_acum
+
+#Otra fórmula de calculo 
+#  dbinom~P[x=k]
+#  pbinom~P[x<=k]
+#  qbinom~percentiles
+#  rbinom~N° aleatorios con una dist binom
+
+Fx3<-pbinom(3,n,prob=0.25)
+Fx3
+Fx<-pbinom(polizas,n,prob=0.25)
+Fx
+
+#Gráficos de la distribución Acumulada
+#La probabilidad entre los puntos permanece constante
+informeF<-cbind(polizas,Fx)
+informeF
+plot(polizas,Fx, type="S")
+plot(polizas,Fx, type="b")
+points(polizas,prob,col="red") #se agregan las probabilidades
+
+#Calculo de la media y varianza
+#E[x]=suma(xi*Prob(xi))
+media1=sum(polizas*prob)
+media1
+
+#Empleando los resultados de la dbinom
+media2<-n*0.25
+media2
+
+#Varianza
+segundo<-sum((polizas^2)*prob)
+segundo
+segundo-media1^2
+var<-segundo-media1^2
+var
+#Varianza con parámetros
+var1<-n*0.25*(1-0.25)
+var1
+#Varianza de otra manera (suma de polizas)
+var2=sum(((polizas-media1)^2)*prob)
+var2
+
+#Ejemplo para el calculo de percentiles
+#Calcule el valor que deja por debajo al 30% de los siniestros
+q30<-qbinom(.3,n,prob=0.25) # se quiere conocer el valor acumulado al 30% de mi probabilidad 
+#que deja por debajo del 30%    # cuando llego a 3 siniestros acumule el 30% de mi prob
+q30
+
+percentiles<-seq(0,1,by=0.05)
+percentiles_1<-seq(0,1,by=0.01)
+percentiles_1
+lpercent<-qbinom(percentiles,n,prob=0.25)
+informe_p<-cbind(percentiles*100,lpercent)
+informe_p
+plot(informe_p, type="b",xlab="Percentiles", ylab="Siniestros")
+#Análisis de los percentiles ¿cómo se comporta la cartera
+#Calcular tercer momento
+sesgo<-(1-2*0.25)/(n*0.25*.75)^.5
+sesgo
+
+#Obtener las siguientes probabilidades 
+#Tener 9 siniestros P[x=9]
+nueve<-dbinom(9,n,prob=0.25)
+nueve
+#Tener 5 o menos siniestros P[x<=5]
+cinco<-pbinom(5,n,prob=0.25)
+cinco
+#Tener más de 7 siniestros P[x>7]=1-P[x<=7]
+siete=1-pbinom(7,n,prob=0.25)
+siete
+#Tener  8 o más siniestros P[x>=8]= 1-P[x<=8]= 1-P[x<=8]-P[x<=8]+P[x=8]=1-P[x<=7]
+ocho=1-pbinom(7,n,0.25)
+ocho
+ocho_a=1-pbinom(8,n,0.25)+dbinom(8,n,0.25)
+ocho_a
+#Tener al menos 4 y a lo mucho 11 siniestros P[4<=x<=11] =  P[x=4]+P[x=5]+...+P[x=11] = P[x<=11]-P[x<=3]
+entre4y11<-pbinom(11,n,prob=0.25)-pbinom(3,n,0.25)
+entre4y11 
+#Tener entre 1 y 8 Siniestros P[1<x<8]=P[x<=7] - P[x<=1]
+entre1y8<-pbinom(7,n,.25)-pbinom(1,n,.25)
+entre1y8
