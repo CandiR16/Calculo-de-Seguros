@@ -1,0 +1,120 @@
+## El banco A ofrece prestamos educativos a estudiantes de la ciudad de NY
+## la tasa de incumpliento es de 45, y la probabilidad de que sean a nivel
+## posgrado es de un 32%, y licenciatura del 25%
+## Lp=45(32%)
+## Ll=45(25%)
+## Todo es para ambos casos
+
+## a) Probabilidades, Distribución Acumulada
+## b) Percentiles
+## c) Media, Varianza y Desviación Estándar
+## d) Valor esperado  e[2x+x^2]
+## e) Probabilidades para ambos casos
+##    e.1)P[x<=5]
+##    e.2) P[7<=x<=11]
+##    e.3) P[x<=7] U P[x>=3]
+## e) Histogramas
+## f) Realizar las simulaciones para ambos casos
+## g) Comparar que tan similares son a la distribución original
+
+pol<-seq(0,150, by=1)
+?poisson
+n=150
+Lp=45*(.32)
+Ll=45*(.25)
+
+################  a) Probabilidades, Distribución Acumulada   ##############
+
+#####  Posgrado
+pgmP<-dpois(pol,Lp)
+pgmP
+plot(pol,pgmP,type="l", xlab="Polizas", ylab="Probabilidad de Incumplimiento")
+#Distribución Acumulada (P<=x)
+FxGM_P<-ppois(pol,Lp)
+FxGM_P
+plot(pol,FxGM_P,type="s", ylab="Probabilidad Acumulada", xlab="Pólizas")
+points(pol,pgmP,type="b", col="red")
+
+#####  Licenciatura
+pgmL<-dpois(pol,Ll)
+pgmL
+plot(pol,pgmL,type="l", xlab="Polizas", ylab="Probabilidad de Incumplimiento")
+#Distribución Acumulada (P<=x)
+FxGM_L<-ppois(pol,Ll)
+FxGM_L
+plot(pol,FxGM_L,type="s", ylab="Probabilidad Acumulada", xlab="Pólizas")
+points(pol,pgmP,type="b", col="red")
+
+
+############################        b) Percentiles      #########################
+
+#####  Posgrado
+gm_per_P<-seq(0,1,by=0.05)
+gm_per_P
+per70<-qpois(.70,Lp)
+per70
+percentiles_gm_P<-qpois(gm_per_P,Lp)
+percentiles_gm_P
+informe_gm_percentiles_P<-cbind(gm_per_P,percentiles_gm_P)
+informe_gm_percentiles_P
+
+#####  Licenciatura
+gm_per_L<-seq(0,1,by=0.05)
+gm_per_L
+per70<-qpois(.70,Ll)
+per70
+percentiles_gm_L<-qpois(gm_per_L,Ll)
+percentiles_gm_L
+informe_gm_percentiles_L<-cbind(gm_per_L,percentiles_gm_L)
+informe_gm_percentiles_L
+
+
+####################   c) Media, Varianza y Desviación Estándar   ##################
+
+#####  Posgrado
+media_gm_P=Lp
+media_gm_P
+varianza_gm_P=Lp
+varianza_gm_P
+desvest_gm_P=varianza_gm_P^.05
+desvest_gm_P
+
+#####  Licenciatura
+media_gm_L=Ll
+media_gm_L
+varianza_gm_L=Ll
+varianza_gm_L
+desvest_gm_L=varianza_gm_L^.05
+desvest_gm_L
+
+
+#######################    d) Valor esperado  e[2x+x^2]          ##################
+
+#####  Posgrado
+val_esp_P=2*Lp+Lp^2+Lp
+val_esp_P
+
+#####  Licenciatura
+val_esp_L=2*Ll+Ll^2+Ll
+val_esp_L
+
+
+#######################     e) Probabilidades para ambos casos       ##################
+##    e.1)P[x<=5]
+##    e.2) P[7<=x<=11]
+##    e.3) P[x<=7] U P[x>=3]
+
+#####  Posgrado
+##    e.1)P[x<=5]
+prob1<-dpois(5,Lp)
+prob1
+##    e.2) P[7<=x<=11]
+prob2=ppois(10,Lp)-ppois(6,Lp)
+prob2
+##    e.3) P[x<=7] U P[x>=3]
+prob3<-dpois(7,Lp)+dpois(3,Lp)-dpois(7,Lp)*dpois(3,Lp)
+prob3
+prob31<-1-dpois(7,Lp)*dpois(3,Lp)
+prob31
+
+#####  Licenciatura
