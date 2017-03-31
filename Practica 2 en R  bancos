@@ -13,9 +13,9 @@
 ##    e.1)P[x<=5]
 ##    e.2) P[7<=x<=11]
 ##    e.3) P[x<=7] U P[x>=3]
-## e) Histogramas
 ## f) Realizar las simulaciones para ambos casos
-## g) Comparar que tan similares son a la distribución original
+## g) Histogramas
+## h) Comparar que tan similares son a la distribución original
 
 pol<-seq(0,150, by=1)
 ?poisson
@@ -46,7 +46,7 @@ plot(pol,FxGM_L,type="s", ylab="Probabilidad Acumulada", xlab="Pólizas")
 points(pol,pgmP,type="b", col="red")
 
 
-############################        b) Percentiles      #########################
+################  b) Percentiles      #########################
 
 #####  Posgrado
 gm_per_P<-seq(0,1,by=0.05)
@@ -69,7 +69,7 @@ informe_gm_percentiles_L<-cbind(gm_per_L,percentiles_gm_L)
 informe_gm_percentiles_L
 
 
-####################   c) Media, Varianza y Desviación Estándar   ##################
+################  c) Media, Varianza y Desviación Estándar   ##################
 
 #####  Posgrado
 media_gm_P=Lp
@@ -88,7 +88,7 @@ desvest_gm_L=varianza_gm_L^.05
 desvest_gm_L
 
 
-#######################    d) Valor esperado  e[2x+x^2]          ##################
+################  d) Valor esperado  e[2x+x^2]          ##################
 
 #####  Posgrado
 val_esp_P=2*Lp+Lp^2+Lp
@@ -99,7 +99,7 @@ val_esp_L=2*Ll+Ll^2+Ll
 val_esp_L
 
 
-#######################     e) Probabilidades para ambos casos       ##################
+################  e) Probabilidades para ambos casos       ##################
 ##    e.1)P[x<=5]
 ##    e.2) P[7<=x<=11]
 ##    e.3) P[x<=7] U P[x>=3]
@@ -112,9 +112,71 @@ prob1
 prob2=ppois(10,Lp)-ppois(6,Lp)
 prob2
 ##    e.3) P[x<=7] U P[x>=3]
-prob3<-dpois(7,Lp)+dpois(3,Lp)-dpois(7,Lp)*dpois(3,Lp)
+prob3<-dpois(6,Lp)-dpois(2,Lp)
 prob3
-prob31<-1-dpois(7,Lp)*dpois(3,Lp)
-prob31
 
 #####  Licenciatura
+##    e.1)P[x<=5]
+prob4<-dpois(5,Ll)
+prob4
+##    e.2) P[7<=x<=11]
+prob5=ppois(10,Ll)-ppois(6,Ll)
+prob5
+##    e.3) P[x<=7] U P[x>=3]
+prob6<-dpois(6,Ll)-dpois(2,Ll)
+prob6
+
+
+################  f) Realizar las simulaciones para ambos casos   ###############
+
+#####  Posgrado
+simulados_gm_P<-rpois(10000,Lp)
+simulados_gm_P
+min(simulados_gm_P)
+max(simulados_gm_P)
+
+#####  Licenciatura
+simulados_gm_L<-rpois(10000,Ll)
+simulados_gm_L
+min(simulados_gm_L)
+max(simulados_gm_L)
+
+################  g) Histogramas            ##############################
+
+#####  Posgrado
+hist(simulados_gm_P,col="red")
+
+#####  Licenciatura
+hist(simulados_gm_L,col="green")
+
+###########media_gm_P=Lp
+media_gm_P
+varianza_gm_P=Lp
+varianza_gm_P
+################################
+media_gm_P_sim<-mean(simulados_gm_P)
+media_gm_P_sim
+varianza_gm_P_sim<-var(simulados_gm_P)
+varianza_gm_P_sim#  h) Comparar que tan similares son a la distribución original  ###########
+
+#####  Posgrado
+media_gm_P=Lp
+media_gm_P
+varianza_gm_P=Lp
+varianza_gm_P
+################################
+media_gm_P_sim<-mean(simulados_gm_P)
+media_gm_P_sim
+varianza_gm_P_sim<-var(simulados_gm_P)
+varianza_gm_P_sim
+
+#####  Licenciatura
+media_gm_L=Ll
+media_gm_L
+varianza_gm_L=Ll
+varianza_gm_L
+################################
+media_gm_L_sim<-mean(simulados_gm_L)
+media_gm_L_sim
+varianza_gm_L_sim<-var(simulados_gm_L)
+varianza_gm_L_sim
