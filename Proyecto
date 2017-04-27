@@ -1,0 +1,41 @@
+u <- 0:30
+po <- dpois(u, 1)
+F <- cumsum(po)
+F
+summary (po)
+
+a <- rpois(1000, 1)
+ab <- data.frame(a)
+summary(ab)
+ab
+
+ab$p[as.numeric(ab$a) == 0  |  as.numeric(ab$a) == 1 | as.numeric(ab$a) == 2]<- 1
+ab$p[as.numeric(ab$a) == 3]<- 2
+ab$p[as.numeric(ab$a) == 4]<- 3
+ab$p[as.numeric(ab$a) == 5]<- 4
+ab$p[as.numeric(ab$a) == 6]<- 5
+ab$p[as.numeric(ab$a) == 7]<- 6
+ab$p[as.numeric(ab$a) == 8]<- 7
+ab$p[as.numeric(ab$a) == 9]<- 8
+
+ab$b[as.numeric(ab$a) == 0  |  as.numeric(ab$a) == 1]<- 1
+ab$b[as.numeric(ab$a) == 2]<- 2
+ab$b[as.numeric(ab$a) == 3]<- 3
+ab$b[as.numeric(ab$a) == 4]<- 4
+ab$b[as.numeric(ab$a) == 5]<- 5
+ab$b[as.numeric(ab$a) == 6]<- 6
+ab$b[as.numeric(ab$a) == 7]<- 7
+ab$b[as.numeric(ab$a) == 8]<- 8
+ab$b[as.numeric(ab$a) == 9]<- 9
+
+var(ab$p) 
+var(ab$b)
+var(ab$a)
+
+
+x11()
+par(mfrow = c(2,2))
+plot(u, po,type = "l", xlab = "Siniestros", ylab = "f(x)")
+plot(F,type = "l", xlab = "Siniestros", ylab = "F(x)")
+hist(ab$p, main = "Siniestros con moneda nacional", xlab = "Número de siniestros", ylab = "Frecuencia")
+hist(ab$b, main = "Siniestros con moneda extranjera", xlab = "Número de siniestros", ylab = "Frecuencia")
